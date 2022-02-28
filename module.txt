@@ -1,0 +1,4 @@
+var contatoApp;
+(function () {
+    contatoApp = angular.module('contatos', []);
+})();

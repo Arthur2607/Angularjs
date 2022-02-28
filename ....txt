@@ -1,0 +1,63 @@
+SERVICE
+            funcionarioApp.service('funcionarioService', function ($http) {
+    //Serviço responsavel por criar um usuario - CREATE
+    this.adcionarUmUser = function (funcionario) {
+        var request = $http({
+            method: 'post',
+            url: '/Funcionario/adcionarFuncionario',
+            data: funcionario
+        });
+        return request;
+    }
+});
+
+----------------------------------------------------------------------//----------------------------------------------------------------
+
+CONTROLLER
+
+funcionarioApp.controller('funcionarioCtrl', function ($scope, funcionarioService) {
+    //Criar Usuarios - CREATE
+    $scope.criarFun = function () {
+        funcionario = {
+            FuncionarioId = $scope.FuncionarioId,
+            FuncionarioNome = $scope.FuncionarioNome,
+            FuncionarioCPF = $scope.FuncionarioCPF,
+            FuncionarioLogin = $scope.FuncionarioLogin,
+            FuncionarioSenha = $scope.FuncionarioSenha
+
+        };
+        var adcionarInfosFun = funcionarioService.adcionarUmUser(funcionario)
+
+        adcionarInfosFun.then(function (d) {
+            if (d.data === true) {
+
+                alert("Usuario cadastrado com sucesso!");
+
+                Limpardados();
+
+            } else { alert("Usuario não foi cadastrado!") }
+        },
+            function () {
+                alert("Erro ao cadastrar o Usuario!")
+            });
+    }
+
+    //Limpar os campos após adcionar no DB
+    $scope.Limpardados = function () {
+        funcionario = {
+            FuncionarioId = '',
+            FuncionarioNome = '',
+            FuncionarioCPF = '',
+            FuncionarioLogin = '',
+            FuncionarioSenha = '';
+        }
+    }
+});
+
+
+
+
+ng-model="FuncionarioNome"
+ng-model="FuncionarioCPF"
+ng-model="FuncionarioLogin"
+ng-model="FuncionarioSenha"
