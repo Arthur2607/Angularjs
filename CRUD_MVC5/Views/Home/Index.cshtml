@@ -1,0 +1,197 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=2">
+    <title>Lista Telefonica</title>
+    <link rel="stylesheet" type="text/css" href="~/css/bootstrap.css" />
+    <style>
+        .container {
+            width: 600px;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+            background: #E5E5E5;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+
+        .btn-info {
+            margin-right: 580px;
+            margin-bottom: 5px;
+        }
+
+        .panel-body {
+            height: 5px;
+        }
+
+        .modal-body {
+            margin-left: 8px;
+        }
+    </style>
+    <script src="\..\..\Scripts\angular.js"></script>
+
+</head>
+<body>
+
+    <div class="container" ng-controller="contatoCtrl">
+        <div class="panel panel-info">
+            <div class="panel-heading">Listar Contatos</div>
+            <div class="panel-body">
+                <button type="button" class="btn btn-info" data-target="#AdcionarContato" data-toggle="modal">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </div>
+
+            <table class="table table-borderless table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="text-center"></th>
+                        <th class="text-center">Nome</th>
+                        <th class="text-center">Telefone</th>
+                        <th class="text-center">Operadoras</th>
+                        <th class="text-center">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="cont in Contatos">
+                        <td>{{cont.contatosId}}</td>
+                        <td>{{cont.nome}}</td>
+                        <td>{{cont.telefone}}</td>
+                        <td>{{cont.operadora}}</td>
+                        <td>
+                            <a href="#" data-target="#AtualizarContato" data-toggle="modal" class="btn btn-success" ng-click="atualizarContatoPorID(cont)"><span class="glyphicon glyphicon-pencil "></span> </a>
+                            <a href="#" data-target="#ExcluirContato" data-toggle="modal" class="btn btn-danger" ng-click="excluirContatoPorID(cont)"><span class="glyphicon glyphicon-trash"></span></a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+
+
+
+            @*INICIO DA MODAL - ADCIONAR CONTATO*@
+
+            <div class="modal" id="AdcionarContato" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-info">Adcionar Contatos</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal" name="adcionarNovoContatoForm">
+                                <div class="form-group">
+                                    <input class="form-control" readonly="readonly" name="contatoId" type="hidden" placeholder="contatoId" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="nome" ng-model="nome" placeholder="Nome" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="telefone" ng-model="telefone" placeholder="Telefone" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" type="text" name="operadora" ng-model="operadora" placeholder="Operadora" />
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-click="criarContatos()">Adcionar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*FIM DA MODAL - ADCIONAR CONTATO*@
+
+            @*INICIO DA MODAL - ATUALIZAR CONTATO*@
+
+            <div class="modal" id="AtualizarContato" role="dialog">
+
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-warning">Atualizar Contato</h3>
+                        </div>
+
+                        <div class="modal-body" style="margin-left: 20px;">
+
+                            <form class="form-horizontal" name="AtualizarForm">
+                                <div class="form-group">
+                                    <input class="form-control" readonly="readonly" name="contatoId" ng-model="AtualizadoContatoID" type="hidden" placeholder="Funcionario ID" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" name="nome" ng-model="AtualizadoNome" placeholder="Nome" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" name="telefone" ng-model="AtualizadoTelefone" placeholder="Telefone" />
+                                </div>
+
+                                <div class="form-group">
+                                    <input class="form-control" name="operadora" ng-model="AtualizadoOperadora" placeholder="Operadora" />
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="btnAtualizar" data-dismiss="modal" ng-click="atualizarContatos()">Atualizar</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="limparDadosAtualizados()">Fechar</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            @*FIM DA MODAL - ATUALIZAR CONTATO*@
+
+            @*INICIO DA MODAL - EXCLUIR CONTATO*@
+
+            <div class="modal" role="dialog" id="ExcluirContato">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="text-info">Voçê tem certeza que deseja excluir o contato?</h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <div>
+                                <p>Id Contato: {{AtualizadoContatoID}}</p>
+                                <p>Nome do Contato: {{AtualizadoNome}}</p>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="excluirContato(AtualizadoContatoID)">Excluir</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            @*FIM DA MODAL - EXCLUIR CONTATO*@
+        </div>
+    </div>
+
+
+    @section scripts{
+        <script src="~/AngularjsApp/Telefonica/module.js"></script>
+        <script src="~/AngularjsApp/Telefonica/service.js"></script>
+        <script src="~/AngularjsApp/Telefonica/controller.js"></script>
+
+    }
+
+</body>
+</html>

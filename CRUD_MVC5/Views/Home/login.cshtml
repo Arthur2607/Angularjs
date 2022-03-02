@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/layout1.cshtml";
+}
+
+<html ng-app="funcionario">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="\..\..\css\bootstrap.css">
+    <script src="\..\..\Scripts\angular.js"></script>
+    <style>
+        .form-control {
+            background: #E5E5E5
+        }
+    </style>
+
+</head>
+<body ng-controller="funcionarioCtrl" >
+    <div class="container jumbotron rounded-3" style="height:300px; width:500px;">
+        <h2 class="text text-center" style="color:black; margin-top:30px">Login</h2>
+        <form class="form-group">
+            <div class="form-control" style="width: 250px; margin-left: 110px; margin-top:20px; ">
+                <input type="text" name="login" placeholder="Login" style="margin-left: 16px; width: 200px; margin-top: 2px" />
+            </div>
+            <div class="form-control" style="width:250px; margin-left:110px ">
+                <input type="password" name="senha" placeholder="Senha" style="margin-left: 16px; width:200px" />
+            </div>
+        </form>
+        <a href="#" data-target="#CriarUsuario" data-toggle="modal" class="" style="margin-left:195px">Cadastre um usuario</a>
+
+        <button type="button" class="btn btn-primary" style="margin-left:410px; height:30px; width:60px; margin-top:25px;">Entrar</button>
+
+        @*INICIO DA MODAL DE CADASTRO DE USUARIO*@
+
+        <div class="modal" id="CriarUsuario" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="text-info">Crie um Usuario</h3>
+                    </div>
+
+                    <div class="modal-body" style="margin-left:110px ">
+                        <form class="form-horizontal" name="AdcionarUsuario">
+                            <div class="form-group">
+                                <input class="form-control" readonly="readonly" name="FuncionarioId" type="hidden" placeholder="FuncionarioId" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" ng-model="funcionarioNome" name="FuncionarioNome" placeholder="Nome" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" ng-model="funcionarioCPF" name="FuncionarioCPF" placeholder="CPF" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="text" ng-model="funcionarioLogin" name="FuncionarioLogin" placeholder="Login" />
+                            </div>
+
+                            <div class="form-group">
+                                <input class="form-control" type="password" ng-model="funcionarioSenha" name="FuncionarioSenha" placeholder="Senha" />
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" type="button" id="btnAdcionar" data-dismiss="modal" ng-click="criarFuncionario()">Adcionar</button>
+                        <button class="btn btn-default" type="button" data-dismiss="modal" ng-click="limparDadosFun()">Fechar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*FIM DA MODAL DE CADASTRO DE USUARIO*@
+
+    </div>
+
+    @section scripts{
+        <script src="~/AngularjsApp/Telefonica/module.js"></script>
+        <script src="~/AngularjsApp/Fun/serviceFun.js"></script>
+        <script src="~/AngularjsApp/Fun/controllerFun.js"></script>
+    }
+
+</body>
+</html>
+

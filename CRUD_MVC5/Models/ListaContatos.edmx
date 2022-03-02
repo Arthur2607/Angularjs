@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ListaTelefonicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contatos">
+          <Key>
+            <PropertyRef Name="contatosId" />
+          </Key>
+          <Property Name="contatosId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="telefone" Type="nvarchar" MaxLength="50" />
+          <Property Name="operadora" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Funcionarios">
+          <Key>
+            <PropertyRef Name="funcionarioId" />
+          </Key>
+          <Property Name="funcionarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="funcionarioNome" Type="nvarchar" MaxLength="50" />
+          <Property Name="funcionarioCPF" Type="nvarchar" MaxLength="50" />
+          <Property Name="funcionarioLogin" Type="nvarchar" MaxLength="50" />
+          <Property Name="funcionarioSenha" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityContainer Name="ListaTelefonicaModelStoreContainer">
+          <EntitySet Name="Contatos" EntityType="Self.Contatos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Funcionarios" EntityType="Self.Funcionarios" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ListaTelefonicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contato">
+          <Key>
+            <PropertyRef Name="contatosId" />
+          </Key>
+          <Property Name="contatosId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="operadora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Funcionario">
+          <Key>
+            <PropertyRef Name="funcionarioId" />
+          </Key>
+          <Property Name="funcionarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="funcionarioNome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="funcionarioCPF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="funcionarioLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="funcionarioSenha" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ListaTelefonicaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contatos" EntityType="Self.Contato" />
+          <EntitySet Name="Funcionarios" EntityType="Self.Funcionario" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ListaTelefonicaModelStoreContainer" CdmEntityContainer="ListaTelefonicaEntities">
+          <EntitySetMapping Name="Contatos">
+            <EntityTypeMapping TypeName="ListaTelefonicaModel.Contato">
+              <MappingFragment StoreEntitySet="Contatos">
+                <ScalarProperty Name="contatosId" ColumnName="contatosId" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="telefone" ColumnName="telefone" />
+                <ScalarProperty Name="operadora" ColumnName="operadora" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Funcionarios">
+            <EntityTypeMapping TypeName="ListaTelefonicaModel.Funcionario">
+              <MappingFragment StoreEntitySet="Funcionarios">
+                <ScalarProperty Name="funcionarioId" ColumnName="funcionarioId" />
+                <ScalarProperty Name="funcionarioNome" ColumnName="funcionarioNome" />
+                <ScalarProperty Name="funcionarioCPF" ColumnName="funcionarioCPF" />
+                <ScalarProperty Name="funcionarioLogin" ColumnName="funcionarioLogin" />
+                <ScalarProperty Name="funcionarioSenha" ColumnName="funcionarioSenha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
