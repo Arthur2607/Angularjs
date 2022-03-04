@@ -153,6 +153,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListaContatos.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

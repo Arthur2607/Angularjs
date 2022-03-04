@@ -11,8 +11,12 @@ namespace CRUD_MVC5.Controllers
     {
         public ActionResult Login()
         {
+            if (Session["Erro"] != null)
+                ViewBag.Erro = Session["Erro"].ToString();
+
             return View();
         }
+           
 
         #region Metodo para criar um funcionario - CREATE
         [HttpPost]
@@ -32,9 +36,32 @@ namespace CRUD_MVC5.Controllers
         }
         #endregion
 
-       
+
+        #region Metodo para Checar um login 
+
+        [HttpPost]
+        public void ChecarLogin()
+        {
+            var usuario = new Usuarios();
+            usuario.funcionarioLogin = Request["Login"];
+            usuario.funcionarioSenha = Request["PassWord"];
+
+            if (usuario.Login())
+            {
+                Session["Autorizado"] = "OK";
+                Session.Remove("Erro");
+                Response.Redirect("/Home/Index");
+            }
+            else
+            {
+                Session["Erro"] = "Senha ou usuário inválidos";
+                Response.Redirect("/Home/Login");
+            }
+        }
+
+        #endregion
 
 
-      
+
     }
 }

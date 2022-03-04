@@ -1,6 +1,6 @@
 ﻿var contatoApp;
 (function () {
-    contatoApp = angular.module('contatos', []);
+    contatoApp = angular.module('contatos',  []);
 })();
 
 var funcionarioApp;

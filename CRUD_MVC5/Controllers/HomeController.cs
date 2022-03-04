@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CRUD_MVC5.Models;
 
 namespace CRUD_MVC5.Controllers
 {
@@ -10,7 +11,18 @@ namespace CRUD_MVC5.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if(Session["Autorizado"] != null)
+            {
+               
+                return View();
+            }
+            else
+            {
+                Response.Redirect("/Home/Login");
+                return null;
+            }
+            
+
         }
 
         public ActionResult login()
