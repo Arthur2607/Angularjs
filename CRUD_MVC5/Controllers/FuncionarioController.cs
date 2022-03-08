@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CRUD_MVC5.Controllers
 {
@@ -16,6 +18,8 @@ namespace CRUD_MVC5.Controllers
 
             return View();
         }
+
+        
            
 
         #region Metodo para criar um funcionario - CREATE
@@ -27,6 +31,7 @@ namespace CRUD_MVC5.Controllers
                 using(var db = new ListaTelefonicaEntities())
                 {
                     db.Funcionarios.Add(funcionario);
+                    funcionario.funcionarioSenha = Md5Controller.CriarHash(funcionario.funcionarioSenha);
                     db.SaveChanges();
 
                     return Json(new { sucess = true });
@@ -40,27 +45,29 @@ namespace CRUD_MVC5.Controllers
         #region Metodo para Checar um login 
 
         [HttpPost]
-        public void ChecarLogin()
+        public JsonResult ChecarLogin(string Login, string password)
         {
-            var usuario = new Usuarios();
-            usuario.funcionarioLogin = Request["Login"];
-            usuario.funcionarioSenha = Request["PassWord"];
-
-            if (usuario.Login())
+            ListaTelefonicaEntities db = new ListaTelefonicaEntities();
+            string md5StringPassword = Md5Controller.CriarHash(password);
+            var dataItem = db.Funcionarios.Where(x => x.funcionarioLogin == Login && x.funcionarioSenha == md5StringPassword).SingleOrDefault();
+            bool isLogged = true;
+            if (dataItem != null)
             {
-                Session["Autorizado"] = "OK";
-                Session.Remove("Erro");
+                Session["Login"] = dataItem.funcionarioLogin;
+                isLogged = true;
                 Response.Redirect("/Home/Index");
+                
             }
             else
             {
-                Session["Erro"] = "Senha ou usuário inválidos";
+                isLogged = false;
                 Response.Redirect("/Home/Login");
             }
+            return Json(isLogged, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
-
+        
 
 
     }

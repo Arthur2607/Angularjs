@@ -37,7 +37,4 @@
         $scope.funcionarioSenha = '';
 
     }
-
-    //Metodo para mandar acessar a pagina de contato telefonico
-   
 });

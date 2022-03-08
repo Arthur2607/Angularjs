@@ -97,7 +97,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input class="form-control" type="text" name="telefone" ng-model="telefone" placeholder="Telefone" />
+                                    <input class="form-control" id="telefone" type="text" name="telefone" ng-model="telefone" placeholder="Telefone" />
                                 </div>
 
                                 <div class="form-group">
@@ -107,14 +107,15 @@
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-click="criarContatos()">Adcionar</button>
+                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora" ng-click="criarContatos()" style="margin-top: 5px
+" >Adcionar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            @*FIM DA MODAL - ADCIONAR CONTATO*@   
+            @*FIM DA MODAL - ADCIONAR CONTATO*@
 
             @*INICIO DA MODAL - ATUALIZAR CONTATO*@
 
@@ -138,7 +139,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input class="form-control" name="telefone" ng-model="AtualizadoTelefone" placeholder="Telefone" />
+                                    <input class="form-control" id="telefone" name="telefone" ng-model="AtualizadoTelefone" placeholder="Telefone" />
                                 </div>
 
                                 <div class="form-group">
@@ -196,6 +197,16 @@
         <script src="~/AngularjsApp/Telefonica/controller.js"></script>
 
     }
+
+    <script src="~/lib/jQuery-Mask-Plugin-master/src/jquery.mask.js" type="text/javascript" asp-append-versio="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $seuCampotel = $("#telefone")
+            $seuCampotel.mask('(00) 00000-0000');
+        });
+    </script>
 
 </body>
 </html>

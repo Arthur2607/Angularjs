@@ -28,7 +28,10 @@ namespace CRUD_MVC5
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include("~/Scripts/angular.js"));
 
-            
+            bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
+            "~/Scripts/inputmask/jquery.inputmask.js"));
+
+
         }
     }
 }
