@@ -7,12 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
 namespace CRUD_MVC5.Models
 {
-   
+    using System;
+    using System.Collections.Generic;
     
     public partial class Contato
     {
@@ -20,5 +18,9 @@ namespace CRUD_MVC5.Models
         public string nome { get; set; }
         public string telefone { get; set; }
         public string operadora { get; set; }
+        public string genero { get; set; }
+        public Nullable<int> fk_profissoes { get; set; }
+    
+        public virtual Profisso Profisso { get; set; }
     }
 }

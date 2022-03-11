@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ListaTelefonicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ListaTelefonicaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Contatos">
           <Key>
             <PropertyRef Name="contatosId" />
@@ -13,6 +13,8 @@
           <Property Name="nome" Type="nvarchar" MaxLength="50" />
           <Property Name="telefone" Type="nvarchar" MaxLength="50" />
           <Property Name="operadora" Type="nvarchar" MaxLength="50" />
+          <Property Name="genero" Type="nvarchar" MaxLength="50" />
+          <Property Name="fk_profissoes" Type="int" />
         </EntityType>
         <EntityType Name="Funcionarios">
           <Key>
@@ -24,12 +26,35 @@
           <Property Name="funcionarioLogin" Type="nvarchar" MaxLength="50" />
           <Property Name="funcionarioSenha" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="Profissoes">
+          <Key>
+            <PropertyRef Name="profissaoId" />
+          </Key>
+          <Property Name="profissaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="fk_profissaoId">
+          <End Role="Profissoes" Type="Self.Profissoes" Multiplicity="0..1" />
+          <End Role="Contatos" Type="Self.Contatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profissoes">
+              <PropertyRef Name="profissaoId" />
+            </Principal>
+            <Dependent Role="Contatos">
+              <PropertyRef Name="fk_profissoes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ListaTelefonicaModelStoreContainer">
           <EntitySet Name="Contatos" EntityType="Self.Contatos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Funcionarios" EntityType="Self.Funcionarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profissoes" EntityType="Self.Profissoes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_profissaoId" Association="Self.fk_profissaoId">
+            <End Role="Profissoes" EntitySet="Profissoes" />
+            <End Role="Contatos" EntitySet="Contatos" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ListaTelefonicaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -41,6 +66,9 @@
           <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="telefone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="operadora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fk_profissoes" Type="Int32" />
+          <NavigationProperty Name="Profisso" Relationship="ListaTelefonicaModel.fk_profissaoId" FromRole="Contato" ToRole="Profisso" />
         </EntityType>
         <EntityType Name="Funcionario">
           <Key>
@@ -55,7 +83,32 @@
         <EntityContainer Name="ListaTelefonicaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contatos" EntityType="Self.Contato" />
           <EntitySet Name="Funcionarios" EntityType="Self.Funcionario" />
+          <EntitySet Name="Profissoes" EntityType="ListaTelefonicaModel.Profisso" />
+          <AssociationSet Name="fk_profissaoId" Association="ListaTelefonicaModel.fk_profissaoId">
+            <End Role="Profisso" EntitySet="Profissoes" />
+            <End Role="Contato" EntitySet="Contatos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Profisso">
+          <Key>
+            <PropertyRef Name="profissaoId" />
+          </Key>
+          <Property Name="profissaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contatos" Relationship="ListaTelefonicaModel.fk_profissaoId" FromRole="Profisso" ToRole="Contato" />
+        </EntityType>
+        <Association Name="fk_profissaoId">
+          <End Type="ListaTelefonicaModel.Profisso" Role="Profisso" Multiplicity="0..1" />
+          <End Type="ListaTelefonicaModel.Contato" Role="Contato" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profisso">
+              <PropertyRef Name="profissaoId" />
+            </Principal>
+            <Dependent Role="Contato">
+              <PropertyRef Name="fk_profissoes" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -65,6 +118,8 @@
           <EntitySetMapping Name="Contatos">
             <EntityTypeMapping TypeName="ListaTelefonicaModel.Contato">
               <MappingFragment StoreEntitySet="Contatos">
+                <ScalarProperty Name="fk_profissoes" ColumnName="fk_profissoes" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
                 <ScalarProperty Name="contatosId" ColumnName="contatosId" />
                 <ScalarProperty Name="nome" ColumnName="nome" />
                 <ScalarProperty Name="telefone" ColumnName="telefone" />
@@ -80,6 +135,14 @@
                 <ScalarProperty Name="funcionarioCPF" ColumnName="funcionarioCPF" />
                 <ScalarProperty Name="funcionarioLogin" ColumnName="funcionarioLogin" />
                 <ScalarProperty Name="funcionarioSenha" ColumnName="funcionarioSenha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profissoes">
+            <EntityTypeMapping TypeName="ListaTelefonicaModel.Profisso">
+              <MappingFragment StoreEntitySet="Profissoes">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="profissaoId" ColumnName="profissaoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,7 +19,8 @@
             contatoId: $scope.contatoId,
             nome: $scope.nome,
             telefone: $scope.telefone,
-            operadora: $scope.operadora
+            operadora: $scope.operadora,
+            genero: $scope.genero
         };
 
         var adcionarInfos = contatoService.adcionarUmContato(contato)
@@ -46,7 +47,8 @@
         $scope.contatoId = '',
             $scope.nome = '',
             $scope.telefone = '',
-            $scope.operadora = '';
+            $scope.operadora = '',
+            $scope.genero = 'Selecione:';
 
     }
 
@@ -55,7 +57,8 @@
         $scope.AtualizadoContatoID = contato.contatosId,
             $scope.AtualizadoNome = contato.nome,
             $scope.AtualizadoTelefone = contato.telefone,
-            $scope.AtualizadoOperadora = contato.operadora;
+            $scope.AtualizadoOperadora = contato.operadora,
+            $scope.AtualizadoGenero = contato.genero;
     }
 
     //Metodo para resgatar dados para exclusão do contato
@@ -70,8 +73,8 @@
             contatosId: $scope.AtualizadoContatoID,
             nome: $scope.AtualizadoNome,
             telefone: $scope.AtualizadoTelefone,
-            operadora: $scope.AtualizadoOperadora
-
+            operadora: $scope.AtualizadoOperadora,
+            genero: $scope.AtualizadoGenero
         };
 
         var atualizarInfos = contatoService.atualizarContatos(contato);
@@ -97,6 +100,7 @@
         $scope.AtualizadoNome = '';
         $scope.AtualizadoTelefone = '';
         $scope.AtualizadoOperadora = '';
+        $scope.AtualizadoGenero = 'Selecione:';
     }
 
     //Metodo responsavel por deletar um contato:
@@ -117,4 +121,8 @@
         });
     }
 
+
+    
+  
 });
+

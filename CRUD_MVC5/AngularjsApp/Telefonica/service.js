@@ -32,7 +32,7 @@
         return $http.post('/Contato/excluirContato/' + AtualizadoContatoID);
     }
 
-    //Serviço responsavel por gerir a pagina login
+    
    
 
 

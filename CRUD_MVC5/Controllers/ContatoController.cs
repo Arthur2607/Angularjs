@@ -58,6 +58,7 @@ namespace CRUD_MVC5.Controllers
                     contatoAtualizado.nome = contato.nome;
                     contatoAtualizado.telefone = contato.telefone;
                     contatoAtualizado.operadora = contato.operadora;
+                    contatoAtualizado.genero = contato.genero;
 
                     db.SaveChanges();
                     return Json(new { sucess = true });

@@ -17,7 +17,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44311</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -153,6 +153,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ListaContatos.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Profisso.cs">
+      <DependentUpon>ListaContatos.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -313,11 +316,7 @@
     <Content Include="Views\Shared\layout1.cshtml" />
     <Content Include="Views\Home\login.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Contato\" />
-    <Folder Include="Views\Funcionario\" />
-    <Folder Include="Views\Usuario\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />

@@ -57,6 +57,7 @@
                         <th class="text-center">Nome</th>
                         <th class="text-center">Telefone</th>
                         <th class="text-center">Operadoras</th>
+                        <th class="text-center">Gênero</th>
                         <th class="text-center">Ação</th>
                     </tr>
                 </thead>
@@ -66,6 +67,7 @@
                         <td>{{cont.nome}}</td>
                         <td>{{cont.telefone}}</td>
                         <td>{{cont.operadora}}</td>
+                        <td>{{cont.genero}}</td>
                         <td>
                             <a href="#" data-target="#AtualizarContato" data-toggle="modal" class="btn btn-success" ng-click="atualizarContatoPorID(cont)"><span class="glyphicon glyphicon-pencil "></span> </a>
                             <a href="#" data-target="#ExcluirContato" data-toggle="modal" class="btn btn-danger" ng-click="excluirContatoPorID(cont)"><span class="glyphicon glyphicon-trash"></span></a>
@@ -103,11 +105,22 @@
                                 <div class="form-group">
                                     <input class="form-control" type="text" name="operadora" ng-model="operadora" placeholder="Operadora" />
                                 </div>
+                                <label style="margin-left:-395px" for="Genero">Selecione seu gênero:</label>
+                                <div class="dropdown, form-check" style="margin-left:-23px;">
+
+                                    <select class="dropdown-header" name="Genero" id="Genero" ng-model="genero">
+                                        <option value="Masculino" >Masculino</option>
+                                        <option value="Feminino" >Feminino</option>
+                                        <option value="Outros" >Outros</option>
+                                    </select>
+                                        
+                                    
+                                </div>
 
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora" ng-click="criarContatos()" style="margin-top: 5px
+                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora || !genero" ng-click="criarContatos()" style="margin-top: 5px
 " >Adcionar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
                         </div>
@@ -144,6 +157,18 @@
 
                                 <div class="form-group">
                                     <input class="form-control" name="operadora" ng-model="AtualizadoOperadora" placeholder="Operadora" />
+                                </div>
+
+                                <label style="margin-left:-395px" for="Genero">Selecione seu gênero:</label>
+                                <div class="dropdown, form-check" style="margin-left:-23px;">
+
+                                    <select class="dropdown-header" name="Genero" id="Genero" ng-model="AtualizadoGenero">
+                                        <option value="Masculino">Masculino</option>
+                                        <option value="Feminino">Feminino</option>
+                                        <option value="Outros">Outros</option>
+                                    </select>
+
+
                                 </div>
                             </form>
 
@@ -206,6 +231,11 @@
             var $seuCampotel = $("#telefone")
             $seuCampotel.mask('(00) 00000-0000');
         });
+
+        var select = document.getElementById("Genero");
+        var opcaoTexto = select.options[select.selectedIndex].text;
+        var opcaoValor = select.options[select.selectedIndex].value;
+       
     </script>
 
 </body>
