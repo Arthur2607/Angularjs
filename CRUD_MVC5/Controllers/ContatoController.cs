@@ -1,4 +1,5 @@
 ﻿using CRUD_MVC5.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +11,14 @@ namespace CRUD_MVC5.Controllers
     public class ContatoController : Controller
     {
         #region Metodo para imprimir ou ler - READ
-        public JsonResult GetContatos()
+        public string GetContatos()
         {
             using (var db = new ListaTelefonicaEntities())
             {
-                List<Contato> listarContatos = db.Contatos.ToList();
-                return Json(listarContatos, JsonRequestBehavior.AllowGet);
-
+                db.Configuration.ProxyCreationEnabled = false;
+                List<Contato> listarContatos = db.Contatos.Include("Profissoes").ToList();
+                var st = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+                return JsonConvert.SerializeObject(listarContatos, st);
             }
         }
         #endregion
@@ -90,6 +92,19 @@ namespace CRUD_MVC5.Controllers
             }
 
 
+        }
+        #endregion
+
+        #region Metodo para imprimir ou ler Profissoes - READ
+        public JsonResult GetProfissoes()
+        {
+            List<Profissoes> listarProf = new List<Profissoes>();
+            using (var db = new ListaTelefonicaEntities())
+            {
+                db.Configuration.ProxyCreationEnabled = false;
+                listarProf = db.Profissoes1.ToList();
+            }
+            return Json(listarProf, JsonRequestBehavior.AllowGet);
         }
         #endregion
 

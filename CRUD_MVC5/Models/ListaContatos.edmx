@@ -31,7 +31,7 @@
             <PropertyRef Name="profissaoId" />
           </Key>
           <Property Name="profissaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nome" Type="nvarchar" MaxLength="50" />
+          <Property Name="profissaoNome" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="fk_profissaoId">
           <End Role="Profissoes" Type="Self.Profissoes" Multiplicity="0..1" />
@@ -68,7 +68,7 @@
           <Property Name="operadora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="genero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="fk_profissoes" Type="Int32" />
-          <NavigationProperty Name="Profisso" Relationship="ListaTelefonicaModel.fk_profissaoId" FromRole="Contato" ToRole="Profisso" />
+          <NavigationProperty Name="Profissoes" Relationship="ListaTelefonicaModel.fk_profissaoId" FromRole="Contato" ToRole="Profisso" />
         </EntityType>
         <EntityType Name="Funcionario">
           <Key>
@@ -83,22 +83,22 @@
         <EntityContainer Name="ListaTelefonicaEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Contatos" EntityType="Self.Contato" />
           <EntitySet Name="Funcionarios" EntityType="Self.Funcionario" />
-          <EntitySet Name="Profissoes" EntityType="ListaTelefonicaModel.Profisso" />
+          <EntitySet Name="Profissoes1" EntityType="ListaTelefonicaModel.Profissoes" />
           <AssociationSet Name="fk_profissaoId" Association="ListaTelefonicaModel.fk_profissaoId">
-            <End Role="Profisso" EntitySet="Profissoes" />
+            <End Role="Profisso" EntitySet="Profissoes1" />
             <End Role="Contato" EntitySet="Contatos" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Profisso">
+        <EntityType Name="Profissoes">
           <Key>
             <PropertyRef Name="profissaoId" />
           </Key>
           <Property Name="profissaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Contatos" Relationship="ListaTelefonicaModel.fk_profissaoId" FromRole="Profisso" ToRole="Contato" />
+          <Property Name="profissaoNome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="fk_profissaoId">
-          <End Type="ListaTelefonicaModel.Profisso" Role="Profisso" Multiplicity="0..1" />
+          <End Type="ListaTelefonicaModel.Profissoes" Role="Profisso" Multiplicity="0..1" />
           <End Type="ListaTelefonicaModel.Contato" Role="Contato" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Profisso">
@@ -138,10 +138,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Profissoes">
-            <EntityTypeMapping TypeName="ListaTelefonicaModel.Profisso">
+          <EntitySetMapping Name="Profissoes1">
+            <EntityTypeMapping TypeName="ListaTelefonicaModel.Profissoes">
               <MappingFragment StoreEntitySet="Profissoes">
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="profissaoNome" ColumnName="profissaoNome" />
                 <ScalarProperty Name="profissaoId" ColumnName="profissaoId" />
               </MappingFragment>
             </EntityTypeMapping>

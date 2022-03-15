@@ -32,7 +32,10 @@
         return $http.post('/Contato/excluirContato/' + AtualizadoContatoID);
     }
 
-    
+    //Serviço responsavel por listar as profissoes: READ
+    this.getTodasProfissoes = function () {
+        return $http.get("/contato/GetProfissoes");
+    }
    
 
 

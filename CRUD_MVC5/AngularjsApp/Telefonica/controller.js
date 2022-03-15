@@ -48,7 +48,12 @@
             $scope.nome = '',
             $scope.telefone = '',
             $scope.operadora = '',
-            $scope.genero = 'Selecione:';
+            $scope.genero = '',
+            RdnNao.checked = false,
+            RdnSim.checked = false,
+            $scope.drop = '';
+
+
 
     }
 
@@ -121,8 +126,25 @@
         });
     }
 
+    //Carregar Profissões no select:
+    function carregaProfissoes() {
+        var listarProf = contatoService.getTodasProfissoes();
+        listarProf.then(function (d) {
+            //se tudo der certo
+            $scope.Profissoes1 = d.data;
+        }, function () {
+            alert("Ocorreu um erro ao tentar listar todos as Profissões!");
 
-    
-  
+        });
+    }
+
+    //Quando a modal adcionar se abre:
+    $scope.onModalOpen = function () {
+        carregaProfissoes();
+    }
+
+   
+
+
 });
 

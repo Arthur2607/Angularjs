@@ -27,6 +27,6 @@ namespace CRUD_MVC5.Models
     
         public DbSet<Contato> Contatos { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
-        public DbSet<Profisso> Profissoes { get; set; }
+        public DbSet<Profissoes> Profissoes1 { get; set; }
     }
 }

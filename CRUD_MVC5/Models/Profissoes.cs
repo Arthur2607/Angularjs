@@ -12,15 +12,15 @@ namespace CRUD_MVC5.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Profisso
+    public partial class Profissoes
     {
-        public Profisso()
+        public Profissoes()
         {
             this.Contatos = new HashSet<Contato>();
         }
     
         public int profissaoId { get; set; }
-        public string Nome { get; set; }
+        public string profissaoNome { get; set; }
     
         public virtual ICollection<Contato> Contatos { get; set; }
     }

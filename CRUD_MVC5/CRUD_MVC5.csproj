@@ -154,7 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListaContatos.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\Profisso.cs">
+    <Compile Include="Models\Profissoes.cs">
       <DependentUpon>ListaContatos.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs" />

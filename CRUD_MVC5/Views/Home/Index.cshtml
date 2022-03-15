@@ -35,6 +35,17 @@
         .modal-body {
             margin-left: 8px;
         }
+        .text-black {
+            box-sizing: border-box;
+            color: rgb(33,77,41);
+            font-size:10px;
+            font-weight:700;
+
+        }
+
+        .col-sm{
+            margin-bottom: 20px;
+        }
     </style>
     <script src="\..\..\Scripts\angular.js"></script>
 
@@ -45,7 +56,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">Listar Contatos</div>
             <div class="panel-body">
-                <button type="button" class="btn btn-info" data-target="#AdcionarContato" data-toggle="modal">
+                <button type="button" class="btn btn-info" data-target="#AdcionarContato" data-toggle="modal" ng-click="onModalOpen()">
                     <span class="glyphicon glyphicon-plus"></span>
                 </button>
             </div>
@@ -68,6 +79,7 @@
                         <td>{{cont.telefone}}</td>
                         <td>{{cont.operadora}}</td>
                         <td>{{cont.genero}}</td>
+                        <td ng-if >{{}}</td>
                         <td>
                             <a href="#" data-target="#AtualizarContato" data-toggle="modal" class="btn btn-success" ng-click="atualizarContatoPorID(cont)"><span class="glyphicon glyphicon-pencil "></span> </a>
                             <a href="#" data-target="#ExcluirContato" data-toggle="modal" class="btn btn-danger" ng-click="excluirContatoPorID(cont)"><span class="glyphicon glyphicon-trash"></span></a>
@@ -82,7 +94,7 @@
 
             @*INICIO DA MODAL - ADCIONAR CONTATO*@
 
-            <div class="modal" id="AdcionarContato" role="dialog">
+            <div class="modal" id="AdcionarContato" role="dialog" style="position:absolute">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -94,34 +106,52 @@
                                     <input class="form-control" readonly="readonly" name="contatoId" type="hidden" placeholder="contatoId" />
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-sm">
                                     <input class="form-control" type="text" name="nome" ng-model="nome" placeholder="Nome" />
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-sm">
                                     <input class="form-control" id="telefone" type="text" name="telefone" ng-model="telefone" placeholder="Telefone" />
                                 </div>
 
-                                <div class="form-group">
+                                <div class="col-sm">
                                     <input class="form-control" type="text" name="operadora" ng-model="operadora" placeholder="Operadora" />
                                 </div>
-                                <label style="margin-left:-395px" for="Genero">Selecione seu gênero:</label>
-                                <div class="dropdown, form-check" style="margin-left:-23px;">
+                                <label class="row" for="Genero">Selecione seu gênero:</label>
 
-                                    <select class="dropdown-header" name="Genero" id="Genero" ng-model="genero">
-                                        <option value="Masculino" >Masculino</option>
-                                        <option value="Feminino" >Feminino</option>
-                                        <option value="Outros" >Outros</option>
+                                <div class="col-sm">
+                                    <select class="dropdown dropdown-header row"  name="Genero" id="Genero" ng-model="genero">
+                                        <option value="">Selecione:</option>
+                                        <option class="dropdown-item-text" value="Masculino">Masculino</option>
+                                        <option class="dropdown-item-text" value="Feminino">Feminino</option>
+                                        <option class="dropdown-item-text" value="Outros">Outros</option>
                                     </select>
-                                        
-                                    
                                 </div>
+
+                                <label for="PROFISSAO"class="row" >Este contato trabalha?</label>
+                                <div id="" class="col-sm" style="margin-left: -10.5cm; margin-top: 5px">
+
+                                    <label id="PROFISSAO" class="radio-inline radio ">
+                                        <input id="RdnSim" name="Profiss" ng-model="prof"  type="radio"  value="sim" />Sim
+                                    </label>
+                                    <label class="radio-inline radio">
+                                        <input id="RdnNao"  name="Profiss" ng-model="prof" type="radio"  value="nao" />Nao
+                                    </label>
+                                </div>
+                                <nav style=" margin-top:13px" >
+                                    <label ng-show="prof == 'sim'" class="row" for="Prof">Selecione sua Profissão:</label>
+
+                                </nav>
+                                <select class="dropdown dropdown-header row" ng-show="prof == 'sim' " ng-model="drop" name="Prof" id="Prof" style=" margin-top:5px">
+                                    <option value="">Selecione:</option>
+                                    <option  ng-repeat="x in Profissoes1" value="{{x.profissaoId}}">{{x.profissaoNome}}</option>
+                                </select>
+
 
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora || !genero" ng-click="criarContatos()" style="margin-top: 5px
-" >Adcionar</button>
+                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora || !genero" ng-click="criarContatos()" style="margin-top: 5px;" >Adcionar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
                         </div>
                     </div>
@@ -160,7 +190,7 @@
                                 </div>
 
                                 <label style="margin-left:-395px" for="Genero">Selecione seu gênero:</label>
-                                <div class="dropdown, form-check" style="margin-left:-23px;">
+                                <div class="dropdown form-check" style="margin-left:-23px;">
 
                                     <select class="dropdown-header" name="Genero" id="Genero" ng-model="AtualizadoGenero">
                                         <option value="Masculino">Masculino</option>
@@ -235,6 +265,8 @@
         var select = document.getElementById("Genero");
         var opcaoTexto = select.options[select.selectedIndex].text;
         var opcaoValor = select.options[select.selectedIndex].value;
+
+
        
     </script>
 

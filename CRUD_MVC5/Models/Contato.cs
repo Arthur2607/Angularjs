@@ -21,6 +21,6 @@ namespace CRUD_MVC5.Models
         public string genero { get; set; }
         public Nullable<int> fk_profissoes { get; set; }
     
-        public virtual Profisso Profisso { get; set; }
+        public virtual Profissoes Profissoes { get; set; }
     }
 }
