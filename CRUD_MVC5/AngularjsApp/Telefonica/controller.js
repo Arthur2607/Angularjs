@@ -7,6 +7,7 @@
         listarContatos.then(function (d) {
             //se tudo der certo
             $scope.Contatos = d.data;
+
         }, function () {
             alert("Ocorreu um erro ao tentar listar todos os contatos!");
 
@@ -20,7 +21,9 @@
             nome: $scope.nome,
             telefone: $scope.telefone,
             operadora: $scope.operadora,
-            genero: $scope.genero
+            genero: $scope.genero,
+            fk_profissoes: $scope.drop
+
         };
 
         var adcionarInfos = contatoService.adcionarUmContato(contato)
@@ -55,6 +58,7 @@
 
 
 
+
     }
 
     //Metodo para atualizar contato por ID
@@ -63,7 +67,13 @@
             $scope.AtualizadoNome = contato.nome,
             $scope.AtualizadoTelefone = contato.telefone,
             $scope.AtualizadoOperadora = contato.operadora,
-            $scope.AtualizadoGenero = contato.genero;
+            $scope.AtualizadoGenero = contato.genero,
+        AtualizadoProfissoes(contato);
+        AttRadio(contato);
+        carregaProfissoes();
+           
+        
+
     }
 
     //Metodo para resgatar dados para exclusão do contato
@@ -79,7 +89,8 @@
             nome: $scope.AtualizadoNome,
             telefone: $scope.AtualizadoTelefone,
             operadora: $scope.AtualizadoOperadora,
-            genero: $scope.AtualizadoGenero
+            genero: $scope.AtualizadoGenero,
+            fk_profissoes: $scope.AtualizadoProfi
         };
 
         var atualizarInfos = contatoService.atualizarContatos(contato);
@@ -106,6 +117,10 @@
         $scope.AtualizadoTelefone = '';
         $scope.AtualizadoOperadora = '';
         $scope.AtualizadoGenero = 'Selecione:';
+        RdnNao.checked = false;
+        RdnSim.checked = false;
+        
+        
     }
 
     //Metodo responsavel por deletar um contato:
@@ -141,10 +156,45 @@
     //Quando a modal adcionar se abre:
     $scope.onModalOpen = function () {
         carregaProfissoes();
+        $scope.limparDados();
+        $scope.prof = true;
+        $scope.prof = 'nao';
+
+
+
     }
 
-   
+    //Limpa o Drop do banco quando nao selecionado
+    $scope.limpaDrop = function () {
+        $scope.drop = '';
+        
+    }
 
+    // Funçao que carrega o valor de select para atualizar:
+    function AtualizadoProfissoes(contato) {
+        if (contato.fk_profissoes == null)
+        {
+            $scope.AtualizadoProfi = '';
+        } else
+        {
+            $scope.AtualizadoProfi = contato.fk_profissoes.toString();
+            
+        }
+    }
+
+    // Validação do Atualizar Prof:
+    function AttRadio(contato) {
+        if (contato.fk_profissoes == null)
+        {
+            $scope.prof = "nao"
+        } else
+        {
+            $scope.prof = "sim"
+        }
+    }
+
+
+   
 
 });
 

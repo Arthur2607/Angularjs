@@ -64,22 +64,23 @@
             <table class="table table-borderless table-striped">
                 <thead class="table-dark">
                     <tr>
-                        <th class="text-center"></th>
+
                         <th class="text-center">Nome</th>
                         <th class="text-center">Telefone</th>
                         <th class="text-center">Operadoras</th>
                         <th class="text-center">Gênero</th>
+                        <th class="text-center">Profissão</th>
                         <th class="text-center">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="cont in Contatos">
-                        <td>{{cont.contatosId}}</td>
+
                         <td>{{cont.nome}}</td>
                         <td>{{cont.telefone}}</td>
                         <td>{{cont.operadora}}</td>
                         <td>{{cont.genero}}</td>
-                        <td ng-if >{{}}</td>
+                        <td>{{cont.Profissoes.profissaoNome}}</td>
                         <td>
                             <a href="#" data-target="#AtualizarContato" data-toggle="modal" class="btn btn-success" ng-click="atualizarContatoPorID(cont)"><span class="glyphicon glyphicon-pencil "></span> </a>
                             <a href="#" data-target="#ExcluirContato" data-toggle="modal" class="btn btn-danger" ng-click="excluirContatoPorID(cont)"><span class="glyphicon glyphicon-trash"></span></a>
@@ -120,7 +121,7 @@
                                 <label class="row" for="Genero">Selecione seu gênero:</label>
 
                                 <div class="col-sm">
-                                    <select class="dropdown dropdown-header row"  name="Genero" id="Genero" ng-model="genero">
+                                    <select class="dropdown dropdown-header row" name="Genero" id="Genero" ng-model="genero">
                                         <option value="">Selecione:</option>
                                         <option class="dropdown-item-text" value="Masculino">Masculino</option>
                                         <option class="dropdown-item-text" value="Feminino">Feminino</option>
@@ -128,30 +129,30 @@
                                     </select>
                                 </div>
 
-                                <label for="PROFISSAO"class="row" >Este contato trabalha?</label>
+                                <label for="PROFISSAO" class="row">Este contato trabalha?</label>
                                 <div id="" class="col-sm" style="margin-left: -10.5cm; margin-top: 5px">
 
                                     <label id="PROFISSAO" class="radio-inline radio ">
-                                        <input id="RdnSim" name="Profiss" ng-model="prof"  type="radio"  value="sim" />Sim
+                                        <input id="RdnSim" name="Profiss" ng-model="prof" type="radio" value="sim" />Sim
                                     </label>
                                     <label class="radio-inline radio">
-                                        <input id="RdnNao"  name="Profiss" ng-model="prof" type="radio"  value="nao" />Nao
+                                        <input id="RdnNao" name="Profiss" ng-click="limpaDrop()" ng-model="prof" type="radio" value="nao" />Nao
                                     </label>
                                 </div>
-                                <nav style=" margin-top:13px" >
+                                <nav style=" margin-top:13px">
                                     <label ng-show="prof == 'sim'" class="row" for="Prof">Selecione sua Profissão:</label>
 
                                 </nav>
                                 <select class="dropdown dropdown-header row" ng-show="prof == 'sim' " ng-model="drop" name="Prof" id="Prof" style=" margin-top:5px">
                                     <option value="">Selecione:</option>
-                                    <option  ng-repeat="x in Profissoes1" value="{{x.profissaoId}}">{{x.profissaoNome}}</option>
+                                    <option ng-repeat="x in Profissoes1" value="{{x.profissaoId}}">{{x.profissaoNome}}</option>
                                 </select>
 
 
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora || !genero" ng-click="criarContatos()" style="margin-top: 5px;" >Adcionar</button>
+                            <button type="button" class="btn btn-primary" id="btnSalvar" data-dismiss="modal" ng-disabled="!nome || !telefone || !operadora || !genero" ng-click="criarContatos()" style="margin-top: 5px;">Adcionar</button>
                             <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="limparDados()">Fechar</button>
                         </div>
                     </div>
@@ -200,6 +201,25 @@
 
 
                                 </div>
+
+                                <div id="" class="col-sm" style="margin-left: -10.5cm; margin-top: 5px">
+
+                                    <label id="PROFISSAO" class="radio-inline radio ">
+                                        <input id="RdnSim" name="Profiss" ng-model="prof" type="radio" value="sim" />Sim
+                                    </label>
+                                    <label class="radio-inline radio">
+                                        <input id="RdnNao" name="Profiss" ng-click="limpaDrop()" ng-model="prof" type="radio" value="nao" />Nao
+                                    </label>
+                                </div>
+
+                                <nav style=" margin-top:13px" ng-show="prof == 'sim'">
+                                    <label class="row" for="Prof">Selecione sua Profissão:</label>
+
+                                </nav>
+                                <select class="dropdown dropdown-header row" ng-show="prof == 'sim'" ng-model="AtualizadoProfi" name="Prof" id="Prof" style=" margin-top:5px">
+                                    <option value="">Selecione:</option>
+                                    <option ng-repeat="x in Profissoes1" value="{{x.profissaoId}}">{{x.profissaoNome}}</option>
+                                </select>
                             </form>
 
                         </div>
@@ -254,7 +274,7 @@
     }
 
     <script src="~/lib/jQuery-Mask-Plugin-master/src/jquery.mask.js" type="text/javascript" asp-append-versio="true"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>*@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -267,8 +287,9 @@
         var opcaoValor = select.options[select.selectedIndex].value;
 
 
-       
+
     </script>
+
 
 </body>
 </html>

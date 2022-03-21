@@ -13,6 +13,7 @@ namespace CRUD_MVC5.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
+    
     public partial class ListaTelefonicaEntities : DbContext
     {
         public ListaTelefonicaEntities()
@@ -29,4 +30,6 @@ namespace CRUD_MVC5.Models
         public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<Profissoes> Profissoes1 { get; set; }
     }
+
+  
 }

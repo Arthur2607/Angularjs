@@ -61,6 +61,7 @@ namespace CRUD_MVC5.Controllers
                     contatoAtualizado.telefone = contato.telefone;
                     contatoAtualizado.operadora = contato.operadora;
                     contatoAtualizado.genero = contato.genero;
+                    contatoAtualizado.fk_profissoes = contato.fk_profissoes;
 
                     db.SaveChanges();
                     return Json(new { sucess = true });
@@ -107,6 +108,8 @@ namespace CRUD_MVC5.Controllers
             return Json(listarProf, JsonRequestBehavior.AllowGet);
         }
         #endregion
+
+       
 
     }
 }
