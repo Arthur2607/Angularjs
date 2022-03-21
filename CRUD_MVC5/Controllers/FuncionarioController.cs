@@ -41,10 +41,7 @@ namespace CRUD_MVC5.Controllers
         }
         #endregion
 
-
-
-
-        #region
+        #region Metodo para Checar Login
 
         [HttpPost]
         public void ChecarLogin(string Login, string password)
@@ -70,6 +67,8 @@ namespace CRUD_MVC5.Controllers
         }
 
         #endregion
+
+
 
     }
 }

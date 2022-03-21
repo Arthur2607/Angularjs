@@ -193,7 +193,31 @@
         }
     }
 
+    //Metodo para criar uma nova Profissão:
+    $scope.criarProf = function () {
+        var profissoes = {
+            profissaoId: $scope.profissaoId,
+            profissaoNome: $scope.profissaoNome
+        };
+        var adcionaInfosProf = contatoService.adcionarUmaProfissao(profissoes)
 
+        adcionaInfosProf.then(function (d) {
+            if (d.data.sucess === true) {
+                alert("Profissão adcionada com sucesso!");
+                $scope.limparProf();
+                carregaProfissoes();
+            } else { alert("Profissão nao adcionada!"); }
+        },
+            function () {
+                alert("Erro ocorrido ao tentar adcionar uma nova Profissão")
+            });
+    }
+
+    // Metodo para limpar os campos das Profissoes
+    $scope.limparProf = function () {
+        $scope.profissaoId = '',
+            $scope.profissaoNome = '';
+    }
    
 
 });

@@ -109,7 +109,27 @@ namespace CRUD_MVC5.Controllers
         }
         #endregion
 
-       
+        #region Metodo para criar uma profissão - CREATE
+
+        [HttpPost]
+        public JsonResult adcionarProfissao(Profissoes profissoes)
+        {
+            if (profissoes != null)
+            {
+                using (var db = new ListaTelefonicaEntities())
+                {
+                    db.Profissoes1.Add(profissoes);
+
+                    db.SaveChanges();
+
+                    return Json(new { sucess = true });
+                }
+            }
+            return Json(new { sucess = false });
+        }
+
+        #endregion
+
 
     }
 }

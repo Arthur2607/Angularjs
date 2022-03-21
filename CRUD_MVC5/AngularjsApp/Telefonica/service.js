@@ -36,7 +36,17 @@
     this.getTodasProfissoes = function () {
         return $http.get("/contato/GetProfissoes");
     }
-   
+
+    //Serviço responsavel por adcionar uma Profissao: CREATE
+    this.adcionarUmaProfissao = function (profissoes) {
+        var request = $http({
+            method: 'post',
+            url: '/contato/adcionarProfissao',
+            data: profissoes
+
+        });
+        return request;
+    }
 
 
 });

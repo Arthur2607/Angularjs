@@ -43,7 +43,6 @@
     }
 
     //Validação de CPF 
-
     function validaCpfCnpj(val) {
         if (val.length == 14) {
             var cpf = val.trim();
@@ -165,9 +164,7 @@
 
  
 
-
-
-
+   
 
 });
 
