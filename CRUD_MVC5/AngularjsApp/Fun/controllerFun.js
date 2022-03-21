@@ -26,20 +26,19 @@
                 function () {
                     alert("Erro ocorrido ao tentar adcionar um novo Funcionario");
                 });
-        } else
-        {
+        } else {
             alert("CPF é invalido!")
-            }
+        }
     }
 
     //Limpar os campos após adcionar no DB
     $scope.limparDadosFun = function () {
 
         $scope.funcionarioId = '',
-        $scope.funcionarioNome = '',
-        $scope.funcionarioCPF = '',
-        $scope.funcionarioLogin = '',
-        $scope.funcionarioSenha = '';
+            $scope.funcionarioNome = '',
+            $scope.funcionarioCPF = '',
+            $scope.funcionarioLogin = '',
+            $scope.funcionarioSenha = '';
 
     }
 
@@ -164,11 +163,14 @@
         }
     }
 
+ 
 
 
 
 
 
-})
+});
+
+
 
    

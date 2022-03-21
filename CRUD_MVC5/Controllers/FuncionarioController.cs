@@ -42,33 +42,34 @@ namespace CRUD_MVC5.Controllers
         #endregion
 
 
-        #region Metodo para Checar um login 
+
+
+        #region
 
         [HttpPost]
-        public JsonResult ChecarLogin(string Login, string password)
+        public void ChecarLogin(string Login, string password)
         {
+            var usuario = new Usuarios();
             ListaTelefonicaEntities db = new ListaTelefonicaEntities();
             string md5StringPassword = Md5Controller.CriarHash(password);
             var dataItem = db.Funcionarios.Where(x => x.funcionarioLogin == Login && x.funcionarioSenha == md5StringPassword).SingleOrDefault();
-            bool isLogged = true;
-            if (dataItem != null)
+            usuario.funcionarioLogin = Request["Login"];
+            usuario.funcionarioSenha = Request["PassWord"];
+
+            if (usuario.Login())
             {
-                Session["Login"] = dataItem.funcionarioLogin;
-                isLogged = true;
+                Session["Autorizado"] = "OK";
+                Session.Remove("Erro");
                 Response.Redirect("/Home/Index");
-                
             }
             else
             {
-                isLogged = false;
+                Session["Erro"] = "Senha ou usuário inválidos";
                 Response.Redirect("/Home/Login");
             }
-            return Json(isLogged, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
-        
-
 
     }
 }

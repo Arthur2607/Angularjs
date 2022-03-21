@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CRUD_MVC5.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,10 +34,12 @@ namespace CRUD_MVC5.Models
                             {
                                 if (dr.Read())
                                 {
-                                    if (this.funcionarioSenha == dr["funcionarioSenha"].ToString())
+                                    string md5StringPassword = Md5Controller.CriarHash(funcionarioSenha);
+
+                                    if (md5StringPassword == dr["funcionarioSenha"].ToString())
                                     {
-                                        this.funcionarioId = Convert.ToInt32(dr["funcionarioId"]);
-                                        this.funcionarioLogin = dr["funcionarioLogin"].ToString();
+                                        funcionarioId = Convert.ToInt32(dr["funcionarioId"]);
+                                        funcionarioLogin = dr["funcionarioLogin"].ToString();
                                         result = true;
                                     }
                                 }
