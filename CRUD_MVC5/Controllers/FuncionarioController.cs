@@ -30,14 +30,26 @@ namespace CRUD_MVC5.Controllers
             {
                 using(var db = new ListaTelefonicaEntities())
                 {
+                    if (verificarCPF(funcionario.funcionarioCPF))
+                    {
+
+                        return Json(new { sucess = false, message = "CPF ja cadastrado." });
+
+                        
+                    }
+                    if (verificarUsuario(funcionario.funcionarioLogin))
+                    {
+                        return Json(new { sucess = false, message = "Usuario indisponivel." });
+                    }
+
                     db.Funcionarios.Add(funcionario);
                     funcionario.funcionarioSenha = Md5Controller.CriarHash(funcionario.funcionarioSenha);
                     db.SaveChanges();
 
-                    return Json(new { sucess = true });
+                    return Json(new { sucess = true, message = "CPF cadastrado com sucesso." });
                 }
             }
-            return Json(new { sucess = false });
+                return Json(new { sucess = false, message = "Funcionario precisa ser cadastrado." });
         }
         #endregion
 
@@ -68,6 +80,39 @@ namespace CRUD_MVC5.Controllers
 
         #endregion
 
+        #region Metodo para verificar se o CPF ja existe - SELECT
+
+        public bool verificarCPF (string funcionarioCPF)
+        { 
+            using(var db = new ListaTelefonicaEntities())
+            {
+              var pesquisaCPF =  db.Funcionarios.FirstOrDefault(_ => _.funcionarioCPF == funcionarioCPF);
+               if(pesquisaCPF != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        #endregion
+
+        #region Metodo para verificar se o Login é existente - SELECT
+        public bool verificarUsuario(string funcionarioLogin)
+        {
+            using (var db = new ListaTelefonicaEntities())
+            {
+                var pesquisaCPF = db.Funcionarios.FirstOrDefault(_ => _.funcionarioLogin == funcionarioLogin);
+                if (pesquisaCPF != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        #endregion
 
 
     }

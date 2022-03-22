@@ -19,7 +19,7 @@
 
                     $scope.limparDadosFun();
 
-                } else { alert("Funcionario não adcionado!"); }
+                } else { alert(d.data.message); }
 
 
             },
@@ -163,7 +163,7 @@
     }
 
  
-
+    //verificar se CPF é igual
    
 
 });
