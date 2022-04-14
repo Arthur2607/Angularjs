@@ -75,7 +75,10 @@ namespace CRUD_MVC5.Controllers
             {
                 Session["Erro"] = "Senha ou usuário inválidos";
                 Response.Redirect("/Home/Login");
+                
             }
+
+            
         }
 
         #endregion
